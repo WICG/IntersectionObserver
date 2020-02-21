@@ -277,7 +277,8 @@ IntersectionObserver.prototype._monitorIntersections = function() {
     else {
       addEvent(window, 'resize', this._checkForIntersections, true);
       addEvent(document, 'scroll', this._checkForIntersections, true);
-
+      addEvent(document, 'transitionend', this._checkForIntersections, true);
+      addEvent(document, 'animationend', this._checkForIntersections, true);
       if (this.USE_MUTATION_OBSERVER && 'MutationObserver' in window) {
         this._domObserver = new MutationObserver(this._checkForIntersections);
         this._domObserver.observe(document, {
