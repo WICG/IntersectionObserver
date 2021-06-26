@@ -782,10 +782,16 @@ function throttle(fn, timeout) {
   var timer = null;
   return function () {
     if (!timer) {
-      timer = setTimeout(function() {
+      var callback = function() {
         fn();
         timer = null;
-      }, timeout);
+      };
+      if (timeout == 0 && window.requestAnimationFrame) {
+        timer = requestAnimationFrame(callback);
+      }
+      else {
+        timer = setTimeout(callback, timeout);
+      }
     }
   };
 }
