@@ -555,7 +555,8 @@ IntersectionObserver.prototype._checkForIntersections = function() {
 IntersectionObserver.prototype._computeTargetAndRootIntersection =
     function(target, targetRect, rootRect) {
   // If the element isn't displayed, an intersection can't happen.
-  if (window.getComputedStyle(target).display == 'none') return;
+  var targetComputedStyle = window.getComputedStyle(target);
+  if (!targetComputedStyle || targetComputedStyle.display == 'none') return;
 
   var intersectionRect = targetRect;
   var parent = getParentNode(target);
